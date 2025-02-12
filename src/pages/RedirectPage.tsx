@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom';
-import RedirectContainer from '../components/RedirectContainer';
+import RedirectContainer from "../components/RedirectContainer";
 
 export default function RedirectPage() {
   return (
