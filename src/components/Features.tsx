@@ -1,20 +1,20 @@
-import { LinkIcon, QrCodeIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { LinkIcon, QrCodeIcon, ShareIcon } from "@heroicons/react/24/outline";
 
 const features = [
   {
     icon: LinkIcon,
-    title: 'Short Links',
-    description: 'Create memorable, branded links that drive more clicks',
+    title: "Short Links",
+    description: "Create memorable, branded links that drive more clicks",
   },
   {
     icon: QrCodeIcon,
-    title: 'QR Codes',
-    description: 'Generate QR codes for your links instantly',
+    title: "QR Codes",
+    description: "Generate QR codes for your links instantly",
   },
   {
     icon: ShareIcon,
-    title: 'Easy Sharing',
-    description: 'Share your links across all social media platforms',
+    title: "Easy Sharing",
+    description: "Share your links across all social media platforms",
   },
 ];
 

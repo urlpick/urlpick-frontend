@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { QRCodeCanvas } from 'qrcode.react';
-import { ClipboardDocumentIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { toast } from 'sonner';
-import clsx from 'clsx';
+import { useState } from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import {
+  ClipboardDocumentIcon,
+  ArrowPathIcon,
+} from "@heroicons/react/24/outline";
+import { toast } from "sonner";
+import clsx from "clsx";
 
 interface UrlResponse {
   short_url: string;
@@ -11,7 +14,7 @@ interface UrlResponse {
 }
 
 export default function UrlForm() {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<UrlResponse | null>(null);
 
@@ -21,19 +24,19 @@ export default function UrlForm() {
 
     try {
       setIsLoading(true);
-      const response = await fetch('https://urlpick-api.ijw.app/api/v1/urls', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("https://urlpick-api.ijw.app/api/v1/urls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
 
-      if (!response.ok) throw new Error('Failed to shorten URL');
+      if (!response.ok) throw new Error("Failed to shorten URL");
 
       const data = await response.json();
       setResult(data);
-      toast.success('URL successfully shortened!');
+      toast.success("URL successfully shortened!");
     } catch (error) {
-      toast.error('Failed to shorten URL. Please try again.');
+      toast.error("Failed to shorten URL. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -42,34 +45,34 @@ export default function UrlForm() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success('Copied to clipboard!');
+      toast.success("Copied to clipboard!");
     } catch (error) {
-      toast.error('Failed to copy to clipboard');
+      toast.error("Failed to copy to clipboard");
     }
   };
 
   const downloadQR = () => {
-    const canvas = document.querySelector('canvas');
+    const canvas = document.querySelector("canvas");
     if (!canvas) {
-      toast.error('QR code canvas not found');
+      toast.error("QR code canvas not found");
       return;
     }
 
     const timestamp = new Date().getTime();
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.download = `qrcode-${timestamp}.png`;
-    link.href = canvas.toDataURL('image/png');
+    link.href = canvas.toDataURL("image/png");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success('QR code downloaded successfully!');
+    toast.success("QR code downloaded successfully!");
   };
 
-  const shareToSocial = (platform: 'twitter' | 'facebook' | 'linkedin') => {
+  const shareToSocial = (platform: "twitter" | "facebook" | "linkedin") => {
     if (!result) return;
 
     const url = encodeURIComponent(result.short_url);
-    const text = encodeURIComponent('Check out this link!');
+    const text = encodeURIComponent("Check out this link!");
 
     const urls = {
       twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
@@ -77,7 +80,7 @@ export default function UrlForm() {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
     };
 
-    window.open(urls[platform], '_blank', 'width=600,height=400');
+    window.open(urls[platform], "_blank", "width=600,height=400");
   };
 
   return (
@@ -109,7 +112,7 @@ export default function UrlForm() {
             {isLoading ? (
               <ArrowPathIcon className="h-5 w-5 animate-spin" />
             ) : (
-              'Shorten'
+              "Shorten"
             )}
           </button>
         </div>
@@ -118,7 +121,9 @@ export default function UrlForm() {
       {result && (
         <div className="card space-y-6 animate-fade-in">
           <div className="space-y-2">
-            <h2 className="text-lg font-semibold text-gray-900">Your Short URL</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              Your Short URL
+            </h2>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -146,10 +151,7 @@ export default function UrlForm() {
                 includeMargin
                 className="bg-white p-2 rounded-lg"
               />
-              <button
-                onClick={downloadQR}
-                className="btn btn-secondary w-full"
-              >
+              <button onClick={downloadQR} className="btn btn-secondary w-full">
                 Download QR Code
               </button>
             </div>
@@ -159,19 +161,19 @@ export default function UrlForm() {
             <h2 className="text-lg font-semibold text-gray-900">Share</h2>
             <div className="flex gap-2">
               <button
-                onClick={() => shareToSocial('twitter')}
+                onClick={() => shareToSocial("twitter")}
                 className="btn btn-secondary flex-1"
               >
                 Twitter
               </button>
               <button
-                onClick={() => shareToSocial('facebook')}
+                onClick={() => shareToSocial("facebook")}
                 className="btn btn-secondary flex-1"
               >
                 Facebook
               </button>
               <button
-                onClick={() => shareToSocial('linkedin')}
+                onClick={() => shareToSocial("linkedin")}
                 className="btn btn-secondary flex-1"
               >
                 LinkedIn

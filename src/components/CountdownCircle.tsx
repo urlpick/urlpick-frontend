@@ -3,7 +3,10 @@ interface CountdownCircleProps {
   total: number;
 }
 
-export default function CountdownCircle({ countdown, total }: CountdownCircleProps) {
+export default function CountdownCircle({
+  countdown,
+  total,
+}: CountdownCircleProps) {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = ((total - countdown) / total) * circumference;
@@ -33,9 +36,7 @@ export default function CountdownCircle({ countdown, total }: CountdownCirclePro
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-4xl font-bold text-gray-900">
-          {countdown}
-        </span>
+        <span className="text-4xl font-bold text-gray-900">{countdown}</span>
       </div>
     </div>
   );
