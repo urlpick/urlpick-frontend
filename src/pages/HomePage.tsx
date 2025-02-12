@@ -1,5 +1,5 @@
-import UrlForm from '../components/UrlForm';
-import Features from '../components/Features';
+import UrlForm from "../components/UrlForm";
+import Features from "../components/Features";
 
 export default function HomePage() {
   return (
