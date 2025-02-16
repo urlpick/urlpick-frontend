@@ -5,6 +5,15 @@ import {
   ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
+import Turnstile from "react-turnstile";
+
+declare global {
+  interface Window {
+    turnstile: {
+      reset: (widgetId?: string) => void;
+    };
+  }
+}
 
 interface UrlResponse {
   short_url: string;
@@ -16,23 +25,39 @@ export default function UrlForm() {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<UrlResponse | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!url) return;
+    if (!url || !token) {
+      toast.error("Please complete the CAPTCHA");
+      return;
+    }
 
     try {
       setIsLoading(true);
       const response = await fetch("https://urlpick-api.ijw.app/api/v1/urls", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url,
+          turnstile_token: token,
+        }),
       });
 
       if (!response.ok) throw new Error("Failed to shorten URL");
 
       const data = await response.json();
       setResult(data);
+      setUrl("");
+      setToken(null);
+
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+
       toast.success("URL successfully shortened!");
     } catch (error) {
       toast.error("Failed to shorten URL. Please try again.");
@@ -105,7 +130,7 @@ export default function UrlForm() {
           />
           <button
             type="submit"
-            disabled={isLoading || !url}
+            disabled={isLoading || !url || !token}
             className="btn btn-primary min-w-[120px]"
           >
             {isLoading ? (
@@ -114,6 +139,24 @@ export default function UrlForm() {
               "Shorten"
             )}
           </button>
+        </div>
+
+        <div className="flex justify-center">
+          <Turnstile
+            id="my-widget"
+            sitekey="0x4AAAAAAA898peEGRrOROAr"
+            onVerify={(token) => setToken(token)}
+            onError={() => {
+              setToken(null);
+              toast.error("CAPTCHA verification failed");
+            }}
+            onExpire={() => {
+              setToken(null);
+              toast.error("CAPTCHA expired, please try again");
+            }}
+            theme="light"
+            className="mx-auto"
+          />
         </div>
       </form>
 
