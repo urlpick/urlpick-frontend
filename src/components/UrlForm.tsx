@@ -36,16 +36,19 @@ export default function UrlForm() {
 
     try {
       setIsLoading(true);
-      const response = await fetch("https://urlpick-api.ijw.app/api/v1/urls", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          url,
-          turnstile_token: token,
-        }),
-      });
+      const response = await fetch(
+        "https://urlpick-api.injun.dev/api/v1/urls",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            url,
+            turnstile_token: token,
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to shorten URL");
 
