@@ -20,7 +20,7 @@ export default function RedirectContainer() {
     const fetchOriginalUrl = async () => {
       try {
         const response = await fetch(
-          `https://urlpick-api.ijw.app/api/v1/urls/${hash}`
+          `https://urlpick-api.injun.dev/api/v1/urls/${hash}`
         );
         if (!response.ok) throw new Error("Invalid or expired URL");
 
