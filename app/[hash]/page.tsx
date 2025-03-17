@@ -5,18 +5,21 @@ import RedirectContainer from "@/components/redirect/redirect-container";
 import AdBanner from "@/components/ads/ad-banner";
 import Loading from "@/components/ui/loading";
 
-export default async function RedirectPage({
-  params,
-}: {
-  params: { hash: string };
-}) {
+interface PageProps {
+  params: Promise<{ hash: string }>;
+}
+
+export default async function RedirectPage(props: PageProps) {
+  const params = await props.params;
+  const hash = params.hash;
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header minimal />
       <main className="flex-grow flex items-center justify-center p-6">
         <div className="w-full max-w-md">
           <Suspense fallback={<Loading />}>
-            <RedirectContainer hash={params.hash} />
+            <RedirectContainer hash={hash} />
             <AdBanner className="mt-8" />
           </Suspense>
         </div>
