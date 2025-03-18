@@ -113,14 +113,6 @@ export default function RootLayout({
           {children}
           <Toaster position="top-center" richColors closeButton />
         </ThemeProvider>
-
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7004859261139401"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
