@@ -85,13 +85,19 @@ export default async function Image({ params }: { params: { hash: string } }) {
                   fill="#3b82f6"
                 />
               </svg>
+
+              {/* Gradient text for logo */}
               <div
                 style={{
-                  fontSize: "48px",
+                  fontSize: "64px",
                   fontWeight: "bold",
-                  background: "linear-gradient(to right, #3b82f6, #8b5cf6)",
+                  backgroundImage:
+                    "linear-gradient(to right, #3b82f6, #8b5cf6)",
                   WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
                   color: "transparent",
+                  display: "flex",
+                  zIndex: 0,
                 }}
               >
                 URLPick
@@ -105,6 +111,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
                 fontWeight: "bold",
                 color: "#0f172a",
                 marginBottom: "10px",
+                display: "flex",
               }}
             >
               Secure Redirect Service
@@ -116,6 +123,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
                 fontSize: "24px",
                 color: "#475569",
                 marginBottom: "30px",
+                display: "flex",
               }}
             >
               You're being redirected to {domain}
@@ -152,6 +160,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
                   fontSize: "18px",
                   fontWeight: "medium",
                   color: "#16a34a",
+                  display: "flex",
                 }}
               >
                 Verified Secure Link
@@ -166,6 +175,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
               bottom: "30px",
               fontSize: "16px",
               color: "#64748b",
+              display: "flex",
             }}
           >
             URLPick • Professional URL Shortening Service
@@ -212,13 +222,18 @@ export default async function Image({ params }: { params: { hash: string } }) {
                 fill="#3b82f6"
               />
             </svg>
+
+            {/* Gradient text for logo in fallback page */}
             <div
               style={{
-                fontSize: "48px",
+                fontSize: "64px",
                 fontWeight: "bold",
-                background: "linear-gradient(to right, #3b82f6, #8b5cf6)",
+                backgroundImage: "linear-gradient(to right, #3b82f6, #8b5cf6)",
                 WebkitBackgroundClip: "text",
+                backgroundClip: "text",
                 color: "transparent",
+                display: "flex",
+                zIndex: 0,
               }}
             >
               URLPick
@@ -230,6 +245,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
               fontWeight: "bold",
               color: "#0f172a",
               marginBottom: "20px",
+              display: "flex",
             }}
           >
             Professional URL Shortener
@@ -238,6 +254,7 @@ export default async function Image({ params }: { params: { hash: string } }) {
             style={{
               fontSize: "24px",
               color: "#475569",
+              display: "flex",
             }}
           >
             Create short, memorable links for your business
