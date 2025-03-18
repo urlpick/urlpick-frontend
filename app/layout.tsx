@@ -2,7 +2,6 @@ import type React from "react";
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import Script from "next/script";
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -79,10 +78,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  verification: {
-    google: "verification_token",
-  },
-  generator: "v0.dev",
 };
 
 export const viewport: Viewport = {
