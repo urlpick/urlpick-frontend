@@ -13,8 +13,8 @@ RUN apk add --no-cache libc6-compat
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies with specific flags to optimize
-RUN npm ci --omit=dev --ignore-scripts
+# Install ALL dependencies (including dev dependencies)
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -65,4 +65,3 @@ ENV HOSTNAME="0.0.0.0"
 
 # Start the application
 CMD ["node", "server.js"]
-
