@@ -37,14 +37,6 @@ export interface HeaderProps {
   minimal?: boolean
 }
 
-export interface SocialSharePlatform {
-  name: string
-  url: string
-}
-
-// Theme Types
-export type Theme = "light" | "dark" | "system"
-
 // Global augmentation for the Cloudflare Turnstile script
 declare global {
   interface Window {
