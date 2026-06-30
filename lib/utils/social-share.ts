@@ -25,6 +25,6 @@ export function getSocialShareUrl(
  */
 export function shareToSocial(platform: "twitter" | "facebook" | "linkedin", url: string): void {
   const shareUrl = getSocialShareUrl(platform, url)
-  window.open(shareUrl, "_blank", SOCIAL.WINDOW_FEATURES)
+  window.open(shareUrl, "_blank", `${SOCIAL.WINDOW_FEATURES},noopener,noreferrer`)
 }
 

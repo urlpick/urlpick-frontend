@@ -87,7 +87,6 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -97,7 +96,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -112,5 +110,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-import "./globals.css";

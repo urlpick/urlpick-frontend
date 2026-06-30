@@ -56,12 +56,14 @@ export default function UrlForm({ onSubmit, isLoading }: UrlFormProps) {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="Enter your URL (e.g. example.com)"
+          aria-label="URL to shorten"
           className="modern-input flex-1"
           required
         />
         <button
           type="submit"
           disabled={isLoading || !url || !token}
+          aria-label="Shorten URL"
           className="modern-button btn-shine min-w-[120px] disabled:opacity-50 disabled:pointer-events-none"
         >
           {isLoading ? (
