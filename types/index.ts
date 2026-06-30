@@ -45,3 +45,14 @@ export interface SocialSharePlatform {
 // Theme Types
 export type Theme = "light" | "dark" | "system"
 
+// Global augmentation for the Cloudflare Turnstile script
+declare global {
+  interface Window {
+    turnstile: {
+      reset: (widgetId?: string) => void
+    }
+  }
+}
+
+export {}
+

@@ -12,10 +12,12 @@ import {
 import { copyToClipboard } from "@/lib/utils/clipboard";
 import { downloadQRCode } from "@/lib/utils/qr-code";
 import { shareToSocial } from "@/lib/utils/social-share";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import type { UrlResultProps } from "@/types";
 
 const UrlResult = memo(function UrlResult({ result }: UrlResultProps) {
+  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
+
   return (
     <Card className="glass-card card-glow animate-in slide-up duration-300">
       <CardHeader className="pb-4 border-b border-border/20 bg-secondary/30">
@@ -50,6 +52,7 @@ const UrlResult = memo(function UrlResult({ result }: UrlResultProps) {
           <div className="flex flex-col items-center gap-5 animate-float">
             <div className="bg-white p-5 rounded-xl shadow-md dark:ring-1 dark:ring-border">
               <QRCodeCanvas
+                ref={qrCanvasRef}
                 value={result.short_url}
                 size={180}
                 level="H"
@@ -58,7 +61,7 @@ const UrlResult = memo(function UrlResult({ result }: UrlResultProps) {
               />
             </div>
             <button
-              onClick={() => downloadQRCode()}
+              onClick={() => downloadQRCode(qrCanvasRef.current)}
               className="modern-button-outline w-full h-10 text-sm"
             >
               <QrCodeIcon className="h-4 w-4 mr-2 inline-block" />
