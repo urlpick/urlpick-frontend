@@ -6,8 +6,8 @@ export function isValidUrl(urlString: string): boolean {
   const urlToCheck = normalizeUrl(urlString)
 
   try {
-    new URL(urlToCheck)
-    return true
+    const parsed = new URL(urlToCheck)
+    return parsed.protocol === "http:" || parsed.protocol === "https:"
   } catch (err) {
     return false
   }
@@ -21,7 +21,7 @@ export function normalizeUrl(url: string): string {
   url = url.trim()
 
   // Check if URL already has a protocol
-  if (!/^(?:f|ht)tps?:\/\//i.test(url)) {
+  if (!/^https?:\/\//i.test(url)) {
     // Add https:// if no protocol is specified
     url = "https://" + url
   }
