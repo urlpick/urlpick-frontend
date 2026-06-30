@@ -26,11 +26,26 @@ export function useRedirect(hash: string): UseRedirectResult {
   const [countdown, setCountdown] = useState(UI.COUNTDOWN_SECONDS)
   const [autoRedirect, setAutoRedirect] = useState(true)
 
+  // Navigate only to http/https targets; the URL comes from the API and is untrusted.
+  const navigateTo = useCallback((url: string) => {
+    try {
+      const protocol = new URL(url).protocol
+      if (protocol !== "http:" && protocol !== "https:") {
+        setError(ERRORS.API.REDIRECT)
+        return
+      }
+    } catch {
+      setError(ERRORS.API.REDIRECT)
+      return
+    }
+    window.location.href = url
+  }, [])
+
   const redirectNow = useCallback(() => {
     if (originalUrl) {
-      window.location.href = originalUrl
+      navigateTo(originalUrl)
     }
-  }, [originalUrl])
+  }, [originalUrl, navigateTo])
 
   // Fetch the original URL
   useEffect(() => {
@@ -51,10 +66,11 @@ export function useRedirect(hash: string): UseRedirectResult {
     fetchOriginalUrl()
   }, [hash])
 
-  // Handle countdown and auto-redirect
+  // Handle countdown and auto-redirect. One interval owns the countdown for its
+  // lifetime; `countdown` is intentionally not a dependency so it isn't recreated
+  // every tick.
   useEffect(() => {
-    // Only start countdown if we have the URL, auto-redirect is enabled, and we're not at zero
-    if (!originalUrl || !autoRedirect || countdown <= 0) return
+    if (!originalUrl || !autoRedirect) return
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -62,6 +78,7 @@ export function useRedirect(hash: string): UseRedirectResult {
         if (newCount <= 0) {
           clearInterval(timer)
           redirectNow()
+          return 0
         }
         return newCount
       })
@@ -69,7 +86,7 @@ export function useRedirect(hash: string): UseRedirectResult {
 
     // Clean up timer on unmount or when dependencies change
     return () => clearInterval(timer)
-  }, [countdown, originalUrl, autoRedirect, redirectNow])
+  }, [originalUrl, autoRedirect, redirectNow])
 
   return {
     originalUrl,
