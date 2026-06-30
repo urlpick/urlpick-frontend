@@ -4,9 +4,6 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  images: {
-    domains: ["urlpick-api.injun.dev"],
-  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react", "@heroicons/react"],

@@ -9,6 +9,10 @@ interface PageProps {
   params: Promise<{ hash: string }>;
 }
 
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 export default async function RedirectPage(props: PageProps) {
   const params = await props.params;
   const hash = params.hash;
