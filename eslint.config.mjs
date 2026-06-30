@@ -11,14 +11,6 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals"),
-  {
-    rules: {
-      // Pre-existing violations in source files that are out of scope for this
-      // dependency/tooling change; downgraded to warnings so lint and build pass.
-      "react/no-unescaped-entities": "warn",
-      "@next/next/no-html-link-for-pages": "warn",
-    },
-  },
 ];
 
 export default eslintConfig;

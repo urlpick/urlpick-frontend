@@ -131,7 +131,7 @@ export default async function Image({
                 display: "flex",
               }}
             >
-              You're being redirected to {domain}
+              You&apos;re being redirected to {domain}
             </div>
 
             {/* Security badge */}

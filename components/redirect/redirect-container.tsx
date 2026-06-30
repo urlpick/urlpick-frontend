@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import CountdownCircle from "@/components/redirect/countdown-circle";
 import { useRedirect } from "@/hooks/use-redirect";
+import Link from "next/link";
 import { UI } from "@/lib/constants";
 import type { RedirectContainerProps } from "@/types";
 
@@ -51,13 +52,13 @@ export default function RedirectContainer({ hash }: RedirectContainerProps) {
           <p className="text-base mt-2 text-muted-foreground">{error}</p>
         </CardHeader>
         <CardContent className="pt-6 flex justify-center">
-          <a
+          <Link
             href="/"
             className="modern-button inline-flex items-center justify-center text-center"
             style={{ width: "auto", minWidth: "200px" }}
           >
             Create New Link
-          </a>
+          </Link>
         </CardContent>
       </Card>
     );
