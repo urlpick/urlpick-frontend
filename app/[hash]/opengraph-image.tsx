@@ -9,10 +9,15 @@ export const size = {
   height: 630,
 };
 
-export default async function Image({ params }: { params: { hash: string } }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ hash: string }>;
+}) {
   try {
+    const { hash } = await params;
     // Try to fetch the original URL
-    const data = await urlService.fetchOriginalUrl(params.hash);
+    const data = await urlService.fetchOriginalUrl(hash);
     const originalUrl = data.original_url;
 
     // Extract domain from original URL

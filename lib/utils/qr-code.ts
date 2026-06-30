@@ -2,10 +2,12 @@ import { ERRORS, SUCCESS } from "@/lib/constants"
 import { toast } from "sonner"
 
 /**
- * Downloads QR code as PNG image
+ * Downloads the given QR code canvas as a PNG image
  */
-export function downloadQRCode(prefix = "urlpick-qr"): boolean {
-  const canvas = document.querySelector("canvas")
+export function downloadQRCode(
+  canvas: HTMLCanvasElement | null,
+  prefix = "urlpick-qr"
+): boolean {
   if (!canvas) {
     toast.error(ERRORS.QR.NOT_FOUND)
     return false
